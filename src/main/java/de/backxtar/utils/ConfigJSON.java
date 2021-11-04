@@ -79,6 +79,7 @@ public class ConfigJSON {
         public List<Integer> temp_CH_ID                     = Arrays.asList(13, 14);
     }
 
+    /* Load configuration from json file */
     private Config loadFromJSON() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String read = "#README - Teamspeak3-Bot by Backxtar\n" +
@@ -115,6 +116,7 @@ public class ConfigJSON {
         return gson.fromJson(reader, Config.class);
     }
 
+    /* Check TERMS OF USE */
     private boolean checkREADME() throws IOException {
         Properties properties = new Properties();
         InputStreamReader reader = new InputStreamReader(new FileInputStream(readMe.getName()), StandardCharsets.UTF_8);
@@ -130,6 +132,7 @@ public class ConfigJSON {
         return false;
     }
 
+    /* Getters & Setters */
     public Config getConfig() {
         return config;
     }

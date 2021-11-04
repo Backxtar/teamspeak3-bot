@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class Tasks {
-    private static final Logger logger = LoggerFactory.getLogger(Tasks.class);
+    private static final Logger log = LoggerFactory.getLogger(Tasks.class);
     private final ScheduledExecutorService scheduler;
     private final TS3Query query;
 
@@ -25,11 +25,12 @@ public class Tasks {
 
     /* Start scheduled tasks */
     private void startTasks() {
-
+        log.info("Starting tasks.");
     }
 
     /* Shutdown per console */
     private void loadReader() throws IOException {
+        log.info("Enable shutdown via 'exit'.");
         String line;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         while ((line = reader.readLine()) != null) {
@@ -37,10 +38,10 @@ public class Tasks {
                 if (query.isConnected() && !scheduler.isShutdown()) {
                     scheduler.shutdownNow();
                     query.exit();
-                    //SqlManager.disconnect();
-                    logger.info("Bot offline.");
+                    SQLManager.disconnect();
+                    log.info("Bot offline.");
                     System.exit(0);
-                } else logger.info("Can not shutdown! Please terminate the screen.");
+                } else log.info("Can not shutdown! Please terminate the screen.");
             }
         }
     }

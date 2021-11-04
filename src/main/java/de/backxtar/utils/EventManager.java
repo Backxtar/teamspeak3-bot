@@ -7,6 +7,7 @@ public class EventManager {
     private final TS3ApiAsync api;
     private final TS3Listener ts3Listener;
 
+    /* Instance of events */
     public EventManager(TS3ApiAsync api) {
         this.api = api;
         this.ts3Listener = new TS3Listener() {
@@ -73,6 +74,7 @@ public class EventManager {
         loadListeners();
     }
 
+    /* Register and activate events */
     private void loadListeners() {
         api.registerAllEvents();
         api.addTS3Listeners(ts3Listener);

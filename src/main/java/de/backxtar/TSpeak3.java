@@ -3,13 +3,11 @@ package de.backxtar;
 import com.github.theholywaffle.teamspeak3.TS3ApiAsync;
 import com.github.theholywaffle.teamspeak3.TS3Config;
 import com.github.theholywaffle.teamspeak3.TS3Query;
-import de.backxtar.utils.CmdManager;
-import de.backxtar.utils.ConfigJSON;
-import de.backxtar.utils.EventManager;
-import de.backxtar.utils.Tasks;
+import de.backxtar.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class TSpeak3 {
     private static final Logger log = LoggerFactory.getLogger(TSpeak3.class);
@@ -20,14 +18,14 @@ public class TSpeak3 {
     private final EventManager eventManager;
     private final Tasks tasks;
 
-    public TSpeak3() throws IOException, InterruptedException {
+    public TSpeak3() throws IOException, InterruptedException, SQLException, ClassNotFoundException {
         tSpeak3 = this;
         log.info("Initialize start...");
 
         /* Configure the bot */
         final TS3Config ts3Config = new TS3Config();
+        log.info("Loading config & checking TERMS OF USE");
         this.botConfig = new ConfigJSON();
-        log.info("Loading " + botConfig.getJson().getName());
         ts3Config.setHost(botConfig.getConfig().ts3_Host);
         ts3Config.setEnableCommunicationsLogging(true);
         ts3Config.setFloodRate(TS3Query.FloodRate.UNLIMITED);
@@ -48,6 +46,12 @@ public class TSpeak3 {
         /* Init interfaces & managers */
         this.cmdManager = new CmdManager();
         this.eventManager = new EventManager(api);
+        SQLManager.connect(
+                botConfig.getConfig().db_Host,
+                botConfig.getConfig().db_Name,
+                botConfig.getConfig().db_User,
+                botConfig.getConfig().db_Passwd
+        );
 
         /* Load tasks */
         this.tasks = new Tasks(query, 5);
@@ -57,7 +61,7 @@ public class TSpeak3 {
     public static void main(String[] args) {
         try {
             new TSpeak3();
-        } catch (IOException | InterruptedException e) {
+        } catch (IOException | InterruptedException | SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
