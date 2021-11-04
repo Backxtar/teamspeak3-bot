@@ -31,15 +31,11 @@ public class SQLManager {
     }
 
     /* Disconnect from database */
-    public static void disconnect() {
-        try {
-            if (conn != null) {
-                conn.close();
-                conn = null;
-                log.info("Disconnected from database - " + dbName);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+    public static void disconnect() throws SQLException{
+        if (conn != null) {
+            conn.close();
+            conn = null;
+            log.info("Disconnected from database - " + dbName);
         }
     }
 

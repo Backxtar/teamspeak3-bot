@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -16,7 +17,7 @@ public class Tasks {
     private final TS3Query query;
 
     /* Constructor for instance */
-    public Tasks(TS3Query query, int threads) throws IOException {
+    public Tasks(TS3Query query, int threads) throws IOException, SQLException {
         this.scheduler = Executors.newScheduledThreadPool(threads);
         this.query = query;
         startTasks();
@@ -29,7 +30,7 @@ public class Tasks {
     }
 
     /* Shutdown per console */
-    private void loadReader() throws IOException {
+    private void loadReader() throws IOException, SQLException {
         log.info("Enable shutdown via 'exit'.");
         String line;
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
