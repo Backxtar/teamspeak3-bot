@@ -13,7 +13,16 @@ public class SQLManager {
     private static Connection conn = null;
     private static String dbName;
 
-    /* Connect to database */
+    /**
+     * Create a connection to mysql database
+     * @param db_Host
+     * @param db_Name
+     * @param db_User
+     * @param db_Passwd
+     * @throws ClassNotFoundException if drivers not found
+     * @throws SQLException if connection fails
+     */
+
     public static void connect(String db_Host, String db_Name, String db_User, String db_Passwd) throws ClassNotFoundException, SQLException {
         dbName = db_Name;
         if (conn != null) disconnect();
@@ -25,12 +34,22 @@ public class SQLManager {
         createTables();
     }
 
-    /* Prepared Statements */
+    /**
+     * PS for sql security
+     * @param sql string
+     * @return a prepareStatement
+     * @throws SQLException
+     */
+
     private static PreparedStatement prepareStatement(String sql) throws SQLException {
         return conn.prepareStatement(sql);
     }
 
-    /* Disconnect from database */
+    /**
+     * Disconnect from database
+     * @throws SQLException
+     */
+
     public static void disconnect() throws SQLException{
         if (conn != null) {
             conn.close();
@@ -39,7 +58,11 @@ public class SQLManager {
         }
     }
 
-    /* Create database if not exist */
+    /**
+     * Create database if not exist
+     * @throws SQLException
+     */
+
     private static void createTables() throws SQLException {
         String[] sqlStmts = {
                 "CREATE TABLE IF NOT EXISTS API_Keys(" +

@@ -18,6 +18,14 @@ public class TSpeak3 {
     private final EventManager eventManager;
     private final Tasks tasks;
 
+    /**
+     * Constructor
+     * @throws IOException when the config was not successful
+     * @throws InterruptedException when the reading was interrupted
+     * @throws SQLException when an error in the mysql connection appears
+     * @throws ClassNotFoundException when the ts3 object got issues
+     */
+
     public TSpeak3() throws IOException, InterruptedException, SQLException, ClassNotFoundException {
         tSpeak3 = this;
         log.info("Initialize start...");
@@ -57,7 +65,11 @@ public class TSpeak3 {
         this.tasks = new Tasks(query, 5);
     }
 
-    /* Main method */
+    /**
+     * main method
+     * @param args for init
+     */
+
     public static void main(String[] args) {
         try {
             new TSpeak3();
@@ -66,26 +78,50 @@ public class TSpeak3 {
         }
     }
 
+    /**
+     * @return a ts3 object
+     */
+
     /* Getters & Setters */
     public static TSpeak3 get_tSpeak3() {
         return tSpeak3;
     }
 
+    /**
+     * @return an api object
+     */
+
     public TS3ApiAsync getApi() {
         return api;
     }
+
+    /**
+     * @return a config object
+     */
 
     public ConfigJSON getBotConfig() {
         return botConfig;
     }
 
+    /**
+     * @return an commandManager object
+     */
+
     public CmdManager getCmdManager() {
         return cmdManager;
     }
 
+    /**
+     * @return an eventManager object
+     */
+
     public EventManager getEventManager() {
         return eventManager;
     }
+
+    /**
+     * @return a task object with all period running tasks
+     */
 
     public Tasks getTasks() {
         return tasks;
