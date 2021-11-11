@@ -12,6 +12,10 @@ public class ConfigJSON {
     private final File json, readMe;
     private final Config config;
 
+    /**
+     * Constructor for init an instance of config
+     * @throws IOException if reading fails
+     */
     public ConfigJSON() throws IOException {
         this.config = new Config();
         this.json = new File("bot_config.json");
@@ -20,6 +24,9 @@ public class ConfigJSON {
         if (!checkREADME()) throw new IOException("Please accept the TERMS OF USE!");
     }
 
+    /**
+     * Config class
+     */
     public class Config {
         /* Style */
         public String main_Color                            = "#806BE3";
@@ -79,7 +86,11 @@ public class ConfigJSON {
         public List<Integer> temp_CH_ID                     = Arrays.asList(13, 14);
     }
 
-    /* Load configuration from json file */
+    /**
+     * Load config from JSON
+     * @return Config object
+     * @throws IOException if reading or creating fails
+     */
     private Config loadFromJSON() throws IOException {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String read = "#README - Teamspeak3-Bot by Backxtar\n" +
@@ -116,7 +127,11 @@ public class ConfigJSON {
         return gson.fromJson(reader, Config.class);
     }
 
-    /* Check TERMS OF USE */
+    /**
+     * Check readme for accepting terms
+     * @return boolean
+     * @throws IOException if reading fails
+     */
     private boolean checkREADME() throws IOException {
         Properties properties = new Properties();
         InputStreamReader reader = new InputStreamReader(new FileInputStream(readMe.getName()), StandardCharsets.UTF_8);
@@ -132,15 +147,23 @@ public class ConfigJSON {
         return false;
     }
 
-    /* Getters & Setters */
+    /**
+     * @return Config object
+     */
     public Config getConfig() {
         return config;
     }
 
+    /**
+     * @return File object of JSON
+     */
     public File getJson() {
         return json;
     }
 
+    /**
+     * @return File object of readme
+     */
     public File getReadMe() {
         return readMe;
     }

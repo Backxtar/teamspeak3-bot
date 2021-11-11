@@ -9,13 +9,23 @@ import java.util.concurrent.ConcurrentHashMap;
 public class CmdManager {
     private final ConcurrentHashMap<String, CmdInterface> commands;
 
+    /**
+     * Constructor
+     */
     public CmdManager() {
         this.commands = new ConcurrentHashMap<>();
 
         /* Command register */
     }
 
-    /* Run command */
+    /**
+     * Run commands
+     * @param command arg array
+     * @param api api object
+     * @param e event object
+     * @param c client object
+     * @return boolean of execution
+     */
     public boolean runCmd(String[] command, TS3ApiAsync api, TextMessageEvent e, Client c) {
         CmdInterface cmdInterface;
 
@@ -26,7 +36,12 @@ public class CmdManager {
         return false;
     }
 
-    /* Split command args */
+    /**
+     * Split command into args
+     * @param msg message
+     * @param values split after char
+     * @return String array
+     */
     public static String[] splitArgs(String msg, int values) {
         return msg.split(" ", values);
     }
