@@ -15,10 +15,10 @@ public class SQLManager {
 
     /**
      * Create a connection to mysql database
-     * @param db_Host
-     * @param db_Name
-     * @param db_User
-     * @param db_Passwd
+     * @param db_Host IP
+     * @param db_Name name
+     * @param db_User user
+     * @param db_Passwd password
      * @throws ClassNotFoundException if drivers not found
      * @throws SQLException if connection fails
      */
@@ -37,7 +37,7 @@ public class SQLManager {
      * PS for sql security
      * @param sql string
      * @return a prepareStatement
-     * @throws SQLException
+     * @throws SQLException if stmt can not be created
      */
     private static PreparedStatement prepareStatement(String sql) throws SQLException {
         return conn.prepareStatement(sql);
@@ -45,7 +45,7 @@ public class SQLManager {
 
     /**
      * Disconnect from database
-     * @throws SQLException
+     * @throws SQLException if disconnecting fails
      */
     public static void disconnect() throws SQLException{
         if (conn != null) {
