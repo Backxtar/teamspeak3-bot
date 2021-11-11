@@ -23,7 +23,6 @@ public class Tasks {
      * @throws IOException when the reading fails
      * @throws SQLException when the disconnect fails
      */
-
     public Tasks(TS3Query query, int threads) throws IOException, SQLException {
         this.scheduler = Executors.newScheduledThreadPool(threads);
         this.query = query;
@@ -34,7 +33,6 @@ public class Tasks {
     /**
      * Start period tasks
      */
-
     private void startTasks() {
         log.info("Starting tasks.");
     }
@@ -44,7 +42,6 @@ public class Tasks {
      * @throws IOException when the line reading fails
      * @throws SQLException when the disconnect fails
      */
-
     private void loadReader() throws IOException, SQLException {
         log.info("Enable shutdown via 'exit'.");
         String line;
@@ -65,7 +62,6 @@ public class Tasks {
     /**
      * @return a ScheduleExecutorService object
      */
-
     public ScheduledExecutorService getScheduler() {
         return scheduler;
     }
