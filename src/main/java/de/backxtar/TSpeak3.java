@@ -33,7 +33,7 @@ public class TSpeak3 {
         final TS3Config ts3Config = new TS3Config();
         log.info("Loading config & checking TERMS OF USE");
         this.botConfig = new ConfigJSON();
-        ts3Config.setHost(botConfig.getConfig().ts3_Host);
+        ts3Config.setHost(botConfig.getConfig().getTs3_Host());
         ts3Config.setEnableCommunicationsLogging(true);
         ts3Config.setFloodRate(TS3Query.FloodRate.UNLIMITED);
         log.info("Bot configured.");
@@ -45,19 +45,19 @@ public class TSpeak3 {
 
         /* Get api object from query */
         this.api = query.getAsyncApi();
-        api.login(botConfig.getConfig().ts3_User, botConfig.getConfig().ts3_Passwd);
+        api.login(botConfig.getConfig().getTs3_User(), botConfig.getConfig().getTs3_Passwd());
         api.selectVirtualServerById(1);
-        api.setNickname(botConfig.getConfig().ts3_Nick);
+        api.setNickname(botConfig.getConfig().getTs3_Nick());
         log.info("Joined " + api.getServerInfo().get().getName());
 
         /* Init interfaces & managers */
         this.cmdManager = new CmdManager();
         this.eventManager = new EventManager(api);
         SQLManager.connect(
-                botConfig.getConfig().db_Host,
-                botConfig.getConfig().db_Name,
-                botConfig.getConfig().db_User,
-                botConfig.getConfig().db_Passwd
+                botConfig.getConfig().getDb_Host(),
+                botConfig.getConfig().getDb_Name(),
+                botConfig.getConfig().getDb_User(),
+                botConfig.getConfig().getDb_Passwd()
         );
 
         /* Load tasks */
