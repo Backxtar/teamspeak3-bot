@@ -2,6 +2,8 @@ package de.backxtar.utils;
 
 import com.github.theholywaffle.teamspeak3.TS3ApiAsync;
 import com.github.theholywaffle.teamspeak3.api.event.*;
+import com.github.theholywaffle.teamspeak3.api.wrapper.Client;
+import de.backxtar.systems.TempChannels;
 
 public class EventManager {
     private final TS3ApiAsync api;
@@ -46,7 +48,15 @@ public class EventManager {
 
             @Override
             public void onClientMoved(ClientMovedEvent e) {
+                int clientID = e.getClientId();
 
+                try {
+                    if (!api.isClientOnline(clientID).get() || api.getClientInfo(clientID).get().isServerQueryClient()) return;
+                    Client client = api.getClientInfo(clientID).get();
+                    TempChannels.tempCreate(e, client, api);
+                } catch (InterruptedException ex) {
+                    ex.printStackTrace();
+                }
             }
 
             @Override
